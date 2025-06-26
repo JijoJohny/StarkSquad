@@ -870,7 +870,7 @@ const WalletAnalyzer: React.FC = () => {
 
   if (!isClient) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-purple-900 via-pink-900 to-blue-900">
+      <div className="flex justify-center items-center min-h-screen bg-black">
         <div className="text-center">
           <Loader2
             className="h-12 w-12 animate-spin text-cyan-400 mx-auto mb-4"
@@ -885,7 +885,7 @@ const WalletAnalyzer: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-900 to-blue-900">
+    <div className="min-h-screen bg-black">
       {/* Professional Header with Neon Theme */}
       <header
         className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-cyan-400 shadow-lg"
