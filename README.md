@@ -1,30 +1,208 @@
-# Advanced UI in React
+# 🕵️‍♀️ MARPLE: Blockchain Forensic Analysis Tool for Starknet
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+**MARPLE** is an advanced blockchain forensic analysis platform tailored for the **Starknet** ecosystem. Investigate transactions, analyze wallet behavior, and detect suspicious patterns with powerful tools built for security researchers, DeFi teams, and on-chain investigators.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/jijo-johnys-projects/v0-advanced-ui-in-react)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/yFfDW60nHtb)
+---
 
-## Overview
+## 🚀 Overview
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+MARPLE provides robust features to:
 
-## Deployment
+- Track and visualize transaction flows
+- Analyze wallet behavior over time
+- Detect suspicious on-chain patterns
+- Perform security audits on tokens and contracts
 
-Your project is live at:
+This tool is designed for:
 
-**[https://vercel.com/jijo-johnys-projects/v0-advanced-ui-in-react](https://vercel.com/jijo-johnys-projects/v0-advanced-ui-in-react)**
+- 🕵️ **Blockchain investigators** tracking illicit funds  
+- 🔐 **Security researchers** monitoring suspicious activity  
+- 📊 **DeFi teams** conducting due diligence  
+- 🧪 **Token projects** verifying smart contract safety  
+- 👤 **Individual users** checking wallet and token risk
 
-## Build your app
+---
 
-Continue building your app on:
+## 🔧 Features
 
-**[https://v0.dev/chat/projects/yFfDW60nHtb](https://v0.dev/chat/projects/yFfDW60nHtb)**
+### 🧠 Core Analysis Tools
 
-## How It Works
+#### 🔗 Transaction Flow Visualization
+Interactive, graph-based mapping of wallet-to-wallet fund movements to uncover hidden trails and links.
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+#### 👤 Wallet Analysis
+Detailed breakdown of wallet behavior, transaction history, frequency of interaction, and risk score evaluation.
+
+#### 🕸️ Transaction Clustering
+Automatically group related transactions and wallets into clusters to uncover sybil networks and transactional rings.
+
+#### 📈 Pattern Analysis
+Detect anomalous on-chain activity such as:
+- Wash trading
+- Circular transfers
+- Abnormal volumes
+- Bot-like repetitive actions
+
+#### 🏷️ Entity Labels
+Identify and tag known wallet entities including:
+- Exchanges
+- DeFi protocols
+- Bridges
+- Flagged or blacklisted addresses
+
+---
+
+## 📘 Usage Guide
+
+### 🔍 Step 1: Enter Wallet Address
+
+1. Go to the **Investigation Command Center**
+2. Input a valid Starknet wallet address (66-character format starting with `0x`)
+
+### 🚦 Step 2: Start Investigation
+
+1. Click **"Start Investigation"**
+2. Wait 5–15 seconds for analysis to complete
+3. A full forensic report will be generated automatically
+
+---
+
+### 📊 Step 3: Analyze Results
+
+#### ✅ Risk Assessment
+
+- **Risk Score** (0–100) with severity levels:
+- 🟢 **Low Risk (0–29)**
+- 🟡 **Medium Risk (30–59)**
+- 🔴 **High Risk (60+)**
+
+#### 🔍 Risk Factors Evaluated
+
+- High-frequency or spammy activity  
+- Mixer usage or anonymizing interactions  
+- Contract calls to flagged/scam addresses  
+- Suspicious gas patterns  
+- Blacklisted connections  
+- Wash trading / loop patterns  
+- Temporal anomalies
+
+#### 📈 Wallet Metrics
+
+- **Total Transactions**
+- **Unique Counterparties**
+- **Active Days**
+- **Contracts Interacted With**
+
+---
+
+### 🌐 Step 4: Explore Network Visualization
+
+#### 🧭 Network Map Key
+
+- 🎯 **Blue Node**: Primary wallet under investigation  
+- 👤 **Colored Nodes**: Connected wallets (color = cluster)  
+- ⚠️ **Red Nodes**: Suspicious entities  
+- 🟢 **Green Lines**: Incoming transactions  
+- 🟡 **Yellow Lines**: Outgoing transactions  
+- 🔴 **Red Lines**: High-value or flagged activity
+
+#### 🖱️ Interactive Controls
+
+- **Click Nodes**: Reveal wallet address
+- **Hover**: View transaction details
+- **Drag & Reposition**: Organize nodes freely
+- **Zoom**: Use mouse wheel or trackpad
+- **Reset**: Restore default view layout
+
+---
+
+### 🎛️ Step 5: Apply Advanced Filters
+
+#### 📌 Token Filter
+- **All Tokens**
+- **ETH**
+- **STRK**
+- **USDC / USDT**
+
+#### 📆 Time Range Filter
+- **All Time**
+- **Last 7 Days**
+- **Last 30 Days**
+- **Last 90 Days**
+
+#### ↕️ Direction Filter
+- **Both Directions**
+- **Incoming Only**
+- **Outgoing Only**
+
+#### 💰 Amount Filter
+- Define minimum transaction value
+- Filter dust/small-value spam
+- Focus on high-value transfers
+
+---
+
+## 🛠️ Advanced Usage Tips
+
+### 🔎 Investigating Suspicious Activity
+
+- Prioritize wallets with **risk scores ≥ 60**
+- Look for **wash trading or circular transfer** indicators
+- Spot **anomalous timing patterns**
+- Analyze **red-flagged entity connections**
+
+### 🌐 Network Analysis Best Practices
+
+- Begin with the **suspect wallet**
+- Follow **thick or highly connected edges**
+- Identify **dense clusters** of interaction
+- Inspect **red nodes** for blacklist matches
+
+### 🎯 Filter Strategically
+
+- Use time filters for **temporal behavior**
+- Token filters for **asset-specific traces**
+- Amount filters to **exclude noise**
+- Direction filters to **trace inflows/outflows**
+
+---
+
+## 📚 Understanding the Data
+
+### 🧾 Transaction Evidence
+
+Each transaction includes:
+- **Amount & Token**
+- **Direction** (Incoming / Outgoing)
+- **Timestamp**
+- **Gas Fees**
+- **Transaction Hash**
+
+### 🧩 Cluster Insights
+
+- **Clusters**: Represent interconnected wallets
+- **Node Size**: Based on transaction volume
+- **Color Code**: Each cluster visually distinguished
+
+### 🚨 Risk Indicators
+
+- **Behavioral Patterns**: Unusual frequency, timing, repetition  
+- **Blacklist Cross-checks**  
+- **Algorithmic Pattern Recognition**
+
+---
+
+## 💬 Feedback & Contributions
+
+We welcome bug reports, ideas, and PRs!  
+Feel free to fork the repo, open issues, or submit improvements.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+> Made with ❤️ for Starknet builders and blockchain detectives.
