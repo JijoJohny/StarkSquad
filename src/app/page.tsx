@@ -770,354 +770,360 @@ const WalletAnalyzer: React.FC = () => {
 
         {/* Main Analysis Dashboard */}
         <div className="space-y-8">
-          {/* Analysis Results */}
-          <div className="space-y-8">
-            <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-xl">
-                  <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
-                    <PieChartIcon className="h-5 w-5 text-white" />
+          {/* Forensic Investigation Report */}
+          <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3 text-xl">
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
+                  <PieChartIcon className="h-5 w-5 text-white" />
+                </div>
+                Comprehensive Wallet Analysis
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {error && (
+                <div className="text-red-600 text-center mb-6 p-4 bg-red-50 rounded-xl border border-red-200">
+                  <div className="font-semibold mb-1">Analysis Error</div>
+                  <div className="text-sm">{error}</div>
+                </div>
+              )}
+              {loading ? (
+                <div className="flex flex-col items-center py-16">
+                  <div className="relative mb-6">
+                    <Loader2 className="h-12 w-12 animate-spin text-blue-600" />
+                    <div className="absolute inset-0 h-12 w-12 rounded-full border-4 border-blue-200"></div>
                   </div>
-                  Comprehensive Wallet Analysis
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {error && (
-                  <div className="text-red-600 text-center mb-6 p-4 bg-red-50 rounded-xl border border-red-200">
-                    <div className="font-semibold mb-1">Analysis Error</div>
-                    <div className="text-sm">{error}</div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Analyzing Wallet</h3>
+                  <p className="text-gray-600 text-center max-w-md">
+                    Processing blockchain data, calculating risk factors, and generating insights...
+                  </p>
+                </div>
+              ) : !currentWalletData ? (
+                <div className="text-center py-16">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <Wallet className="h-8 w-8 text-white" />
                   </div>
-                )}
-                {loading ? (
-                  <div className="flex flex-col items-center py-16">
-                    <div className="relative mb-6">
-                      <Loader2 className="h-12 w-12 animate-spin text-blue-600" />
-                      <div className="absolute inset-0 h-12 w-12 rounded-full border-4 border-blue-200"></div>
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Analyzing Wallet</h3>
-                    <p className="text-gray-600 text-center max-w-md">
-                      Processing blockchain data, calculating risk factors, and generating insights...
-                    </p>
-                  </div>
-                ) : !currentWalletData ? (
-                  <div className="text-center py-16">
-                    <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <Wallet className="h-8 w-8 text-white" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">Ready for Analysis</h3>
-                    <p className="text-gray-600 max-w-md mx-auto">
-                      Enter a Starknet wallet address above to begin comprehensive blockchain analysis with advanced
-                      risk assessment and transaction flow visualization.
-                    </p>
-                  </div>
-                ) : (
-                  <div className="space-y-8">
-                    {/* Risk Score Card */}
-                    <Card
-                      className={`border-0 shadow-lg ${
-                        currentWalletData.riskLevel === "low"
-                          ? "bg-gradient-to-r from-green-500 to-green-600"
-                          : currentWalletData.riskLevel === "medium"
-                            ? "bg-gradient-to-r from-yellow-500 to-yellow-600"
-                            : "bg-gradient-to-r from-red-500 to-red-600"
-                      } text-white`}
-                    >
-                      <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-4">
-                            <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
-                              <Shield className="h-8 w-8" />
-                            </div>
-                            <div>
-                              <h3 className="text-2xl font-bold mb-1">Risk Score: {currentWalletData.riskScore}/100</h3>
-                              <Badge variant="secondary" className="bg-white/20 text-white font-bold">
-                                {currentWalletData.riskLevel.toUpperCase()} RISK
-                              </Badge>
-                            </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">Ready for Analysis</h3>
+                  <p className="text-gray-600 max-w-md mx-auto">
+                    Enter a Starknet wallet address above to begin comprehensive blockchain analysis with advanced risk
+                    assessment and transaction flow visualization.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-8">
+                  {/* Risk Score Card */}
+                  <Card
+                    className={`border-0 shadow-lg ${
+                      currentWalletData.riskLevel === "low"
+                        ? "bg-gradient-to-r from-green-500 to-green-600"
+                        : currentWalletData.riskLevel === "medium"
+                          ? "bg-gradient-to-r from-yellow-500 to-yellow-600"
+                          : "bg-gradient-to-r from-red-500 to-red-600"
+                    } text-white`}
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
+                            <Shield className="h-8 w-8" />
                           </div>
-                          <div className="text-right">
-                            <div className="text-3xl font-bold opacity-80">{currentWalletData.riskScore}%</div>
-                            <div className="text-sm opacity-80">Risk Level</div>
+                          <div>
+                            <h3 className="text-2xl font-bold mb-1">Risk Score: {currentWalletData.riskScore}/100</h3>
+                            <Badge variant="secondary" className="bg-white/20 text-white font-bold">
+                              {currentWalletData.riskLevel.toUpperCase()} RISK
+                            </Badge>
                           </div>
                         </div>
-                      </CardContent>
-                    </Card>
+                        <div className="text-right">
+                          <div className="text-3xl font-bold opacity-80">{currentWalletData.riskScore}%</div>
+                          <div className="text-sm opacity-80">Risk Level</div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
 
-                    {/* Risk Breakdown */}
-                    {currentWalletData.riskBreakdown && (
-                      <Card className="border-0 shadow-lg bg-white">
-                        <CardHeader>
-                          <CardTitle className="text-lg flex items-center gap-2">
-                            <Target className="h-5 w-5 text-blue-600" />
-                            Risk Factor Analysis
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {Object.entries(currentWalletData.riskBreakdown).map(([factor, value]) => (
-                              <div key={factor} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                                <span className="font-medium text-gray-700 capitalize">
-                                  {factor.replace(/([A-Z])/g, " $1")}
-                                </span>
-                                <Badge variant={Number(value) > 0 ? "destructive" : "secondary"}>{value}</Badge>
-                              </div>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )}
-
-                    {/* Metrics Grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-blue-100">
-                        <CardContent className="p-6 text-center">
-                          <div className="text-3xl font-bold text-blue-600 mb-2">
-                            {currentWalletData.metrics.totalTransactions}
-                          </div>
-                          <div className="text-sm text-blue-700 font-medium">Total Transactions</div>
-                        </CardContent>
-                      </Card>
-                      <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-green-100">
-                        <CardContent className="p-6 text-center">
-                          <div className="text-3xl font-bold text-green-600 mb-2">
-                            {currentWalletData.metrics.uniqueCounterparties}
-                          </div>
-                          <div className="text-sm text-green-700 font-medium">Unique Counterparties</div>
-                        </CardContent>
-                      </Card>
-                      <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-purple-100">
-                        <CardContent className="p-6 text-center">
-                          <div className="text-3xl font-bold text-purple-600 mb-2">
-                            {currentWalletData.metrics.activeDays}
-                          </div>
-                          <div className="text-sm text-purple-700 font-medium">Active Days</div>
-                        </CardContent>
-                      </Card>
-                      <Card className="border-0 shadow-lg bg-gradient-to-br from-orange-50 to-orange-100">
-                        <CardContent className="p-6 text-center">
-                          <div className="text-3xl font-bold text-orange-600 mb-2">
-                            {currentWalletData.metrics.contractsInteracted}
-                          </div>
-                          <div className="text-sm text-orange-700 font-medium">Contracts Interacted</div>
-                        </CardContent>
-                      </Card>
-                    </div>
-
-                    {/* Token Balances */}
+                  {/* Risk Breakdown */}
+                  {currentWalletData.riskBreakdown && (
                     <Card className="border-0 shadow-lg bg-white">
                       <CardHeader>
                         <CardTitle className="text-lg flex items-center gap-2">
-                          <PieChartIcon className="h-5 w-5 text-green-600" />
-                          Token Portfolio Distribution
+                          <Target className="h-5 w-5 text-blue-600" />
+                          Risk Factor Analysis
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <ResponsiveContainer width="100%" height={250}>
-                          <PieChart>
-                            <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
-                              {pieData.map((entry, idx) => (
-                                <Cell key={`cell-${idx}`} fill={COLORS[idx % COLORS.length]} />
-                              ))}
-                            </Pie>
-                            <RechartsTooltip />
-                            <Legend />
-                          </PieChart>
-                        </ResponsiveContainer>
-                        <div className="max-h-40 overflow-y-auto space-y-3 mt-6">
-                          {currentWalletData.tokenBalances.map((token, idx) => (
-                            <div
-                              key={`${token.symbol}-${token.contractAddress || "noaddr"}-${idx}`}
-                              className="flex justify-between items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-                            >
-                              <div className="flex items-center gap-3">
-                                <div
-                                  className="w-4 h-4 rounded-full"
-                                  style={{ backgroundColor: COLORS[idx % COLORS.length] }}
-                                ></div>
-                                <span className="font-semibold text-gray-900">{token.symbol}</span>
-                              </div>
-                              <div className="text-right">
-                                <div className="text-blue-600 font-semibold">{Number(token.balance).toFixed(4)}</div>
-                                <div className="text-xs text-gray-500">${token.value}</div>
-                              </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {Object.entries(currentWalletData.riskBreakdown).map(([factor, value]) => (
+                            <div key={factor} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                              <span className="font-medium text-gray-700 capitalize">
+                                {factor.replace(/([A-Z])/g, " $1")}
+                              </span>
+                              <Badge variant={Number(value) > 0 ? "destructive" : "secondary"}>{value}</Badge>
                             </div>
                           ))}
                         </div>
                       </CardContent>
                     </Card>
+                  )}
 
-                    {/* Recent Transactions */}
-                    <Card className="border-0 shadow-lg bg-white">
-                      <CardHeader>
-                        <CardTitle className="text-lg flex items-center gap-2">
-                          <Activity className="h-5 w-5 text-purple-600" />
-                          Recent Transaction Activity
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="max-h-64 overflow-y-auto space-y-3">
-                          {(filteredTransactions.length > 0 ? filteredTransactions : currentWalletData.transactions)
-                            .slice(0, 10)
-                            .map((tx, idx) => (
-                              <Card
-                                key={`${tx.hash}-${idx}`}
-                                className={`border-l-4 shadow-sm hover:shadow-md transition-shadow ${
-                                  tx.type === "incoming"
-                                    ? "border-l-green-500 bg-green-50/50"
-                                    : "border-l-red-500 bg-red-50/50"
-                                }`}
-                              >
-                                <CardContent className="p-4">
-                                  <div className="flex justify-between items-start mb-2">
-                                    <div className="flex items-center gap-3">
-                                      {tx.type === "incoming" ? (
-                                        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                                          <ArrowDown className="h-4 w-4 text-green-600" />
-                                        </div>
-                                      ) : (
-                                        <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
-                                          <ArrowUp className="h-4 w-4 text-red-600" />
-                                        </div>
-                                      )}
-                                      <div>
-                                        <span
-                                          className={`font-bold text-lg ${
-                                            tx.type === "incoming" ? "text-green-600" : "text-red-600"
-                                          }`}
-                                        >
-                                          {tx.amount.toFixed(4)} {tx.token}
-                                        </span>
-                                        <div className="text-xs text-gray-500 mt-1">
-                                          {tx.timestamp ? new Date(tx.timestamp).toLocaleString() : ""}
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <Badge variant="outline" className="text-xs">
-                                      Gas: {tx.gasUsed.toLocaleString()}
-                                    </Badge>
-                                  </div>
-                                  <div className="text-xs font-mono text-gray-600 bg-gray-100 p-2 rounded">
-                                    {tx.hash.substring(0, 30)}...{tx.hash.substring(tx.hash.length - 10)}
-                                  </div>
-                                </CardContent>
-                              </Card>
-                            ))}
+                  {/* Metrics Grid */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-blue-100">
+                      <CardContent className="p-6 text-center">
+                        <div className="text-3xl font-bold text-blue-600 mb-2">
+                          {currentWalletData.metrics.totalTransactions}
                         </div>
+                        <div className="text-sm text-blue-700 font-medium">Total Transactions</div>
+                      </CardContent>
+                    </Card>
+                    <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-green-100">
+                      <CardContent className="p-6 text-center">
+                        <div className="text-3xl font-bold text-green-600 mb-2">
+                          {currentWalletData.metrics.uniqueCounterparties}
+                        </div>
+                        <div className="text-sm text-green-700 font-medium">Unique Counterparties</div>
+                      </CardContent>
+                    </Card>
+                    <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-purple-100">
+                      <CardContent className="p-6 text-center">
+                        <div className="text-3xl font-bold text-purple-600 mb-2">
+                          {currentWalletData.metrics.activeDays}
+                        </div>
+                        <div className="text-sm text-purple-700 font-medium">Active Days</div>
+                      </CardContent>
+                    </Card>
+                    <Card className="border-0 shadow-lg bg-gradient-to-br from-orange-50 to-orange-100">
+                      <CardContent className="p-6 text-center">
+                        <div className="text-3xl font-bold text-orange-600 mb-2">
+                          {currentWalletData.metrics.contractsInteracted}
+                        </div>
+                        <div className="text-sm text-orange-700 font-medium">Contracts Interacted</div>
                       </CardContent>
                     </Card>
                   </div>
-                )}
+
+                  {/* Recent Transactions */}
+                  <Card className="border-0 shadow-lg bg-white">
+                    <CardHeader>
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Activity className="h-5 w-5 text-purple-600" />
+                        Recent Transaction Activity
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="max-h-64 overflow-y-auto space-y-3">
+                        {(filteredTransactions.length > 0 ? filteredTransactions : currentWalletData.transactions)
+                          .slice(0, 10)
+                          .map((tx, idx) => (
+                            <Card
+                              key={`${tx.hash}-${idx}`}
+                              className={`border-l-4 shadow-sm hover:shadow-md transition-shadow ${
+                                tx.type === "incoming"
+                                  ? "border-l-green-500 bg-green-50/50"
+                                  : "border-l-red-500 bg-red-50/50"
+                              }`}
+                            >
+                              <CardContent className="p-4">
+                                <div className="flex justify-between items-start mb-2">
+                                  <div className="flex items-center gap-3">
+                                    {tx.type === "incoming" ? (
+                                      <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                        <ArrowDown className="h-4 w-4 text-green-600" />
+                                      </div>
+                                    ) : (
+                                      <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                                        <ArrowUp className="h-4 w-4 text-red-600" />
+                                      </div>
+                                    )}
+                                    <div>
+                                      <span
+                                        className={`font-bold text-lg ${
+                                          tx.type === "incoming" ? "text-green-600" : "text-red-600"
+                                        }`}
+                                      >
+                                        {tx.amount.toFixed(4)} {tx.token}
+                                      </span>
+                                      <div className="text-xs text-gray-500 mt-1">
+                                        {tx.timestamp ? new Date(tx.timestamp).toLocaleString() : ""}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <Badge variant="outline" className="text-xs">
+                                    Gas: {tx.gasUsed.toLocaleString()}
+                                  </Badge>
+                                </div>
+                                <div className="text-xs font-mono text-gray-600 bg-gray-100 p-2 rounded">
+                                  {tx.hash.substring(0, 30)}...{tx.hash.substring(tx.hash.length - 10)}
+                                </div>
+                              </CardContent>
+                            </Card>
+                          ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Transaction Network Map - Now positioned below forensic report */}
+          {currentWalletData && (
+            <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
+              <CardHeader>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <CardTitle className="flex items-center gap-3 text-xl mb-2">
+                      <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
+                        <Globe className="h-5 w-5 text-white" />
+                      </div>
+                      Transaction Network Map
+                    </CardTitle>
+                    <p className="text-sm text-gray-600">Advanced forensic network analysis</p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      if (graphRef.current) {
+                        const svg = graphRef.current.querySelector("svg")
+                        if (svg) d3.select(svg).transition().duration(500).call(d3.zoom().transform, d3.zoomIdentity)
+                      }
+                    }}
+                    className="border-gray-300"
+                  >
+                    Reset Zoom
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {/* Cluster Legend */}
+                <div className="mb-6">
+                  <h4 className="text-sm font-semibold text-gray-900 mb-3">Cluster Analysis</h4>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {[...Array(numClusters).keys()].map((cid) => (
+                      <div key={`cluster-${cid}`} className="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full">
+                        <div
+                          className="w-3 h-3 rounded-full border border-gray-300"
+                          style={{
+                            backgroundColor: clusterColorsRef.current ? clusterColorsRef.current(String(cid)) : "#ccc",
+                          }}
+                        />
+                        <span className="text-xs font-medium">Cluster {cid + 1}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded-lg">
+                    <div className="flex items-center gap-2 mb-1">
+                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                      <span>Node size = transaction volume</span>
+                    </div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                      <span>Green = incoming, Yellow = outgoing</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
+                      <span>Click nodes to view full address</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Graph Container */}
+                <div
+                  ref={graphRef}
+                  className="w-full h-[600px] border-2 border-gray-200 rounded-xl bg-gradient-to-br from-gray-50 to-blue-50 relative shadow-inner overflow-hidden"
+                />
+
+                {/* Tooltip */}
+                <div
+                  ref={tooltipRef}
+                  className="hidden absolute bg-gray-900/95 text-white p-3 rounded-lg text-xs pointer-events-none z-50 backdrop-blur-sm shadow-xl border border-gray-700"
+                />
               </CardContent>
             </Card>
-          </div>
+          )}
 
-          {/* Right Column - Network Visualization */}
-          {/* Network Visualization */}
-          <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
-            <CardHeader>
-              <div className="flex justify-between items-start">
-                <div>
-                  <CardTitle className="flex items-center gap-3 text-xl mb-2">
-                    <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
-                      <Globe className="h-5 w-5 text-white" />
-                    </div>
-                    Network Visualization
+          {/* Token Portfolio and Transaction Volume Charts */}
+          {currentWalletData && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Token Portfolio Distribution */}
+              <Card className="border-0 shadow-lg bg-white">
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <PieChartIcon className="h-5 w-5 text-green-600" />
+                    Token Portfolio Distribution
                   </CardTitle>
-                  <p className="text-sm text-gray-600">Interactive transaction flow analysis</p>
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    if (graphRef.current) {
-                      const svg = graphRef.current.querySelector("svg")
-                      if (svg) d3.select(svg).transition().duration(500).call(d3.zoom().transform, d3.zoomIdentity)
-                    }
-                  }}
-                  className="border-gray-300"
-                >
-                  Reset Zoom
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              {/* Cluster Legend */}
-              <div className="mb-6">
-                <h4 className="text-sm font-semibold text-gray-900 mb-3">Cluster Analysis</h4>
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {[...Array(numClusters).keys()].map((cid) => (
-                    <div key={`cluster-${cid}`} className="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full">
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <PieChart>
+                      <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
+                        {pieData.map((entry, idx) => (
+                          <Cell key={`cell-${idx}`} fill={COLORS[idx % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <RechartsTooltip />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <div className="max-h-40 overflow-y-auto space-y-3 mt-6">
+                    {currentWalletData.tokenBalances.map((token, idx) => (
                       <div
-                        className="w-3 h-3 rounded-full border border-gray-300"
-                        style={{
-                          backgroundColor: clusterColorsRef.current ? clusterColorsRef.current(String(cid)) : "#ccc",
+                        key={`${token.symbol}-${token.contractAddress || "noaddr"}-${idx}`}
+                        className="flex justify-between items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div
+                            className="w-4 h-4 rounded-full"
+                            style={{ backgroundColor: COLORS[idx % COLORS.length] }}
+                          ></div>
+                          <span className="font-semibold text-gray-900">{token.symbol}</span>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-blue-600 font-semibold">{Number(token.balance).toFixed(4)}</div>
+                          <div className="text-xs text-gray-500">${token.value}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Transaction Volume Analytics */}
+              <Card className="border-0 shadow-lg bg-white">
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5 text-blue-600" />
+                    Transaction Volume Analytics
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={txVolumeData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                      <XAxis dataKey="date" fontSize={12} stroke="#666" />
+                      <YAxis allowDecimals={false} fontSize={12} stroke="#666" />
+                      <RechartsTooltip
+                        contentStyle={{
+                          backgroundColor: "white",
+                          border: "1px solid #e5e7eb",
+                          borderRadius: "8px",
+                          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                         }}
                       />
-                      <span className="text-xs font-medium">Cluster {cid + 1}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded-lg">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    <span>Node size = transaction volume</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-                    <span>Green = incoming, Red = outgoing</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Graph Container */}
-              <div
-                ref={graphRef}
-                className="w-full h-[600px] border-2 border-gray-200 rounded-xl bg-gradient-to-br from-gray-50 to-blue-50 relative shadow-inner overflow-hidden"
-              />
-
-              {/* Tooltip */}
-              <div
-                ref={tooltipRef}
-                className="hidden absolute bg-gray-900/95 text-white p-3 rounded-lg text-xs pointer-events-none z-50 backdrop-blur-sm shadow-xl border border-gray-700"
-              />
-            </CardContent>
-          </Card>
-
-          {/* Transaction Volume Chart */}
-          <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-xl">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center">
-                  <BarChart3 className="h-5 w-5 text-white" />
-                </div>
-                Transaction Volume Analytics
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={txVolumeData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis dataKey="date" fontSize={12} stroke="#666" />
-                  <YAxis allowDecimals={false} fontSize={12} stroke="#666" />
-                  <RechartsTooltip
-                    contentStyle={{
-                      backgroundColor: "white",
-                      border: "1px solid #e5e7eb",
-                      borderRadius: "8px",
-                      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-                    }}
-                  />
-                  <Bar dataKey="count" fill="url(#colorGradient)" radius={[4, 4, 0, 0]} />
-                  <defs>
-                    <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.3} />
-                    </linearGradient>
-                  </defs>
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
+                      <Bar dataKey="count" fill="url(#colorGradient)" radius={[4, 4, 0, 0]} />
+                      <defs>
+                        <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
+                          <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.3} />
+                        </linearGradient>
+                      </defs>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </div>
       </main>
 
