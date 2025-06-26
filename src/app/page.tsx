@@ -769,9 +769,9 @@ const WalletAnalyzer: React.FC = () => {
         </Card>
 
         {/* Main Analysis Dashboard */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-          {/* Left Column - Analysis Results */}
-          <div className="xl:col-span-2 space-y-8">
+        <div className="space-y-8">
+          {/* Analysis Results */}
+          <div className="space-y-8">
             <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-xl">
@@ -1009,116 +1009,115 @@ const WalletAnalyzer: React.FC = () => {
                 )}
               </CardContent>
             </Card>
-
-            {/* Transaction Volume Chart */}
-            <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-xl">
-                  <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center">
-                    <BarChart3 className="h-5 w-5 text-white" />
-                  </div>
-                  Transaction Volume Analytics
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ResponsiveContainer width="100%" height={200}>
-                  <BarChart data={txVolumeData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                    <XAxis dataKey="date" fontSize={12} stroke="#666" />
-                    <YAxis allowDecimals={false} fontSize={12} stroke="#666" />
-                    <RechartsTooltip
-                      contentStyle={{
-                        backgroundColor: "white",
-                        border: "1px solid #e5e7eb",
-                        borderRadius: "8px",
-                        boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-                      }}
-                    />
-                    <Bar dataKey="count" fill="url(#colorGradient)" radius={[4, 4, 0, 0]} />
-                    <defs>
-                      <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.3} />
-                      </linearGradient>
-                    </defs>
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
           </div>
 
           {/* Right Column - Network Visualization */}
-          <div className="xl:col-span-1">
-            <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm min-h-[800px] sticky top-24">
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="flex items-center gap-3 text-xl mb-2">
-                      <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
-                        <Globe className="h-5 w-5 text-white" />
-                      </div>
-                      Network Visualization
-                    </CardTitle>
-                    <p className="text-sm text-gray-600">Interactive transaction flow analysis</p>
+          {/* Network Visualization */}
+          <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
+            <CardHeader>
+              <div className="flex justify-between items-start">
+                <div>
+                  <CardTitle className="flex items-center gap-3 text-xl mb-2">
+                    <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
+                      <Globe className="h-5 w-5 text-white" />
+                    </div>
+                    Network Visualization
+                  </CardTitle>
+                  <p className="text-sm text-gray-600">Interactive transaction flow analysis</p>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    if (graphRef.current) {
+                      const svg = graphRef.current.querySelector("svg")
+                      if (svg) d3.select(svg).transition().duration(500).call(d3.zoom().transform, d3.zoomIdentity)
+                    }
+                  }}
+                  className="border-gray-300"
+                >
+                  Reset Zoom
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {/* Cluster Legend */}
+              <div className="mb-6">
+                <h4 className="text-sm font-semibold text-gray-900 mb-3">Cluster Analysis</h4>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {[...Array(numClusters).keys()].map((cid) => (
+                    <div key={`cluster-${cid}`} className="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full">
+                      <div
+                        className="w-3 h-3 rounded-full border border-gray-300"
+                        style={{
+                          backgroundColor: clusterColorsRef.current ? clusterColorsRef.current(String(cid)) : "#ccc",
+                        }}
+                      />
+                      <span className="text-xs font-medium">Cluster {cid + 1}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded-lg">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                    <span>Node size = transaction volume</span>
                   </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      if (graphRef.current) {
-                        const svg = graphRef.current.querySelector("svg")
-                        if (svg) d3.select(svg).transition().duration(500).call(d3.zoom().transform, d3.zoomIdentity)
-                      }
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                    <span>Green = incoming, Red = outgoing</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Graph Container */}
+              <div
+                ref={graphRef}
+                className="w-full h-[600px] border-2 border-gray-200 rounded-xl bg-gradient-to-br from-gray-50 to-blue-50 relative shadow-inner overflow-hidden"
+              />
+
+              {/* Tooltip */}
+              <div
+                ref={tooltipRef}
+                className="hidden absolute bg-gray-900/95 text-white p-3 rounded-lg text-xs pointer-events-none z-50 backdrop-blur-sm shadow-xl border border-gray-700"
+              />
+            </CardContent>
+          </Card>
+
+          {/* Transaction Volume Chart */}
+          <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3 text-xl">
+                <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center">
+                  <BarChart3 className="h-5 w-5 text-white" />
+                </div>
+                Transaction Volume Analytics
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={txVolumeData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                  <XAxis dataKey="date" fontSize={12} stroke="#666" />
+                  <YAxis allowDecimals={false} fontSize={12} stroke="#666" />
+                  <RechartsTooltip
+                    contentStyle={{
+                      backgroundColor: "white",
+                      border: "1px solid #e5e7eb",
+                      borderRadius: "8px",
+                      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                     }}
-                    className="border-gray-300"
-                  >
-                    Reset Zoom
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent>
-                {/* Cluster Legend */}
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-gray-900 mb-3">Cluster Analysis</h4>
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {[...Array(numClusters).keys()].map((cid) => (
-                      <div key={`cluster-${cid}`} className="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full">
-                        <div
-                          className="w-3 h-3 rounded-full border border-gray-300"
-                          style={{
-                            backgroundColor: clusterColorsRef.current ? clusterColorsRef.current(String(cid)) : "#ccc",
-                          }}
-                        />
-                        <span className="text-xs font-medium">Cluster {cid + 1}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded-lg">
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span>Node size = transaction volume</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-                      <span>Green = incoming, Red = outgoing</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Graph Container */}
-                <div
-                  ref={graphRef}
-                  className="w-full h-[600px] border-2 border-gray-200 rounded-xl bg-gradient-to-br from-gray-50 to-blue-50 relative shadow-inner overflow-hidden"
-                />
-
-                {/* Tooltip */}
-                <div
-                  ref={tooltipRef}
-                  className="hidden absolute bg-gray-900/95 text-white p-3 rounded-lg text-xs pointer-events-none z-50 backdrop-blur-sm shadow-xl border border-gray-700"
-                />
-              </CardContent>
-            </Card>
-          </div>
+                  />
+                  <Bar dataKey="count" fill="url(#colorGradient)" radius={[4, 4, 0, 0]} />
+                  <defs>
+                    <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.3} />
+                    </linearGradient>
+                  </defs>
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
         </div>
       </main>
 
